@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- INHERITED VIEW OF HR EMPLOYEE -->
+    <record model="ir.ui.view" id="view_employee_form_inherit_scrum">
+        <field name="name">hr.employee.form.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="sale_timesheet.hr_timesheet_employee_extd_form"/>
+        <field name="arch" type="xml">
+            <label for="timesheet_cost" position="before">
+                <field name="product_id" domain="[('type','=','service')]"/>
+                <field name="journal_id"/>
+                <field name="project_task"/>
+            </label>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- DEVELOPMENT TEAM TREE VIEW -->
+    <record model="ir.ui.view" id="view_project_scrum_team_tree">
+        <field name="model">project.scrum.devteam</field>
+        <field name="name">view.project.scrum.team.tree</field>
+        <field name="arch" type="xml">
+            <tree string="Scrum Development Teams">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- DEVELOPMENT TEAM FORM VIEW -->
+    <record model="ir.ui.view" id="view_project_scrum_team_form">
+        <field name="model">project.scrum.devteam</field>
+        <field name="name">view.project.scrum.team.form</field>
+        <field name="arch" type="xml">
+            <form string="Scrum Development Teams" version="10.0">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                        </group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Team" name="team">
+                            <field name="developer_ids" widget="many2many" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- DEVELOPMENT TEAM ACTION VIEW -->
+    <record model="ir.actions.act_window" id="action_project_scrum_team">
+        <field name="name">Team</field>
+        <field name="res_model">project.scrum.devteam</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- DEVELOPMENT TEAM MENU -->
+    <menuitem action="action_project_scrum_team" id="menu_action_project_scrum_team"
+        name="Development Teams" parent="project.menu_project_config" groups="base.group_no_one"/>
+
+    <!-- INHERITED VIEW OF RES_USERS_FORM -->
+    <record model="ir.ui.view" id="view_project_scrum_inherit_res_users_form">
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="scrum_devteam_id"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- PROJECT SCRUM SANDBOX TO BACKLOG FORM VIEW -->
+    <record model="ir.ui.view" id="view_scrum_sandbox_to_backlog">
+        <field name="name">project.scrum.sandbox.to.backlog.form</field>
+        <field name="model">project.scrum.sandbox.to.backlog</field>
+        <field name="arch" type="xml">
+            <form string="Transfer to backlog">
+                <group>
+                    <field name="release_id" required='1' style="width:50%%;"/>
+                </group>
+                <footer>
+                    <button name="do_transfer" string="_Transfer" type="object"
+                        default_focus="1" class="oe_highlight"/>
+                    or
+                    <button string="cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- PROJECT SCRUM SANDBOX TO BACKLOG ACTION VIEW -->
+    <record id="action_tranfer_to_backlog" model="ir.actions.act_window">
+        <field name="name">Transfer to Backlog</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">project.scrum.sandbox.to.backlog</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_scrum_sandbox_to_backlog"/>
+        <field name="target">new</field>
+    </record>
+
+    <!-- PROJECT SCRUM SANDBOX TO BACKLOG WINDOW ACTION -->
+    <act_window id="scrum_sandbox_to_backlog_values" multi="True"
+        key2="client_action_multi" name="Transfer to Backlog" res_model="project.scrum.sandbox.to.backlog"
+        src_model="project.scrum.sandbox" view_mode="form" target="new"
+        view_type="form" view_id="view_scrum_sandbox_to_backlog" groups="group_scrum_owner"/>
+
+</odoo>

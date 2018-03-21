@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- BACKLOG CREATE TASK FORM VIEW -->
+    <record id="view_scrum_backlog_to_task" model="ir.ui.view">
+        <field name="name">project.scrum.backlog.create.task.form</field>
+        <field name="model">project.scrum.backlog.create.task</field>
+        <field name="arch" type="xml">
+            <form string="Convert to Task">
+                <separator string="Convert to Task" colspan="4"/>
+                <field name="user_id"/>
+                <separator colspan="4"/>
+                <footer>
+                    <button name="do_create" string="_Convert" type="object"
+                        default_focus="1" class="oe_highlight"/>
+                    or
+                    <button string="cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- BACKLOG CREATE ACTION VIEW -->
+    <record id="action_convert_to_task" model="ir.actions.act_window">
+        <field name="name">Convert into Tasks</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">project.scrum.backlog.create.task</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_scrum_backlog_to_task"/>
+        <field name="target">new</field>
+    </record>
+
+    <!-- BACKLOG CREATE WINDOW ACTION -->
+    <act_window id="scrum_backlog_to_task_values" multi="True"
+        key2="client_action_multi" name="Convert into Tasks" res_model="project.scrum.backlog.create.task"
+        src_model="project.scrum.product.backlog" view_mode="form" target="new"
+        view_type="form" view_id="view_scrum_backlog_to_task" groups="group_scrum_owner,group_scrum_master"/>
+
+</odoo>
