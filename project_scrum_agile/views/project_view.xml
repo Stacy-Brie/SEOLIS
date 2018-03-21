@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- INHERITED VIEW OF PROJECT -->
+    <record model="ir.ui.view" id="view_project_project_form">
+        <field name="name">project.project.form</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <button name="toggle_active" position="after">
+                <button class="oe_stat_button"
+                    name="%(project_scrum_agile.action_project_scrum_product_backlog)d" type="action"
+                    context="{'search_default_project_id': active_id}" icon="fa-files-o"
+                    attrs="{'invisible':[('is_scrum', '=', False)]}">
+                    <field string="Backlogs" name="backlog_count" widget="statinfo"/>
+                </button>
+            </button>
+            <xpath expr="/form/sheet/div[2]" position="after">
+                <field name="is_scrum" class="oe_inline"/>
+                <label for="is_scrum"/>
+            </xpath>
+            <field name="user_id" position="replace">
+                <field name="team_id" attrs="{'invisible':[('is_scrum', '=', False)]}"/>
+                <field name="user_id" attrs="{'invisible':[('is_scrum', '=', True)]}"/>
+                <field name="scrum_master_id" attrs="{'invisible':[('is_scrum', '=', False)]}"/>
+                <field name="product_owner_id" attrs="{'invisible':[('is_scrum', '=', False)]}"/>
+            </field>
+            <xpath expr="/form/sheet/notebook/page[1]" position="after">
+                <page string="Goal" attrs="{'invisible':[('is_scrum', '=', False)]}">
+                    <separator string="Goal"/>
+                    <field name="goal"/>
+                </page>
+                <page string="Releases" attrs="{'invisible':[('is_scrum', '=', False)]}">
+                    <field name="release_ids"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- INHERITED VIEW OF TASK -->
+    <record id="view_task_type_edit_inherit" model="ir.ui.view">
+        <field name="name">project.task.type.form.inherit</field>
+        <field name="model">project.task.type</field>
+        <field name="inherit_id" ref="project.task_type_edit"/>
+        <field name="arch" type="xml">
+            <field name="mail_template_id" position="after">
+                <field name="default_view"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- INHERITED VIEW OF STAGES -->
+    <record id="task_type_tree_inherit" model="ir.ui.view">
+        <field name="name">project.task.type.trr.inherit</field>
+        <field name="model">project.task.type</field>
+        <field name="inherit_id" ref="project.task_type_tree"/>
+        <field name="arch" type="xml">
+            <field name="fold" position="after">
+                <field name="default_view"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
